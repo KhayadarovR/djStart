@@ -15,6 +15,7 @@ from django.core.exceptions import ValidationError
 
 class NewsForm(forms.ModelForm):
     error_css_class = "error"
+
     class Meta:
         model = News
         # fields = "__all__"
@@ -34,5 +35,3 @@ class NewsForm(forms.ModelForm):
 
     # def clean_is_pub(self):
     #     is_pub = self.cleaned_data['is_pub']
-
-

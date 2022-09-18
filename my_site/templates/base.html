@@ -20,6 +20,23 @@
 
       <div class="col-9">
           {% block CONTENT %} КОНТЕНТ {% endblock %}
+
+          {% if page_obj.has_other_pages %}
+            <nav aria-label="...">
+              <ul class="pagination pagination-lg mt-3">
+                  {% for p in page_obj.paginator.page_range %}
+                    {% if page_obj.number == p %}
+                    <li class="page-item active" aria-current="page">
+                      <span class="page-link">-><span class="sr-only">{{p}}</span></span>
+                    </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+                    {% endif %}
+                  {% endfor %}
+              </ul>
+            </nav>
+          {% endif %}
+
       </div>
   </div>
 </div>

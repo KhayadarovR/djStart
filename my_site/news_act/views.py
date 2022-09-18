@@ -1,20 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from news_act.forms import NewsForm
 from news_act.models import News, Category
+from news_act.utils import MyMixin
 
 
-class HomeNews(ListView):
+class HomeNews(MyMixin, ListView):
     """Главная страница с новостями"""
     model = News
     template_name = 'news_act/home_news.html'
     context_object_name = 'news'
+    paginate_by = 5
 
     # extra_context = {'title_page': 'Главная'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title_page'] = 'Главные новости'
+        context['title_page'] = self.get_upper('Главные новости')
         return context
 
     def get_queryset(self):
@@ -28,6 +32,7 @@ class NewsCategory(ListView):
     template_name = "news_act/category.html"
     context_object_name = 'news'
     allow_empty = False  # При отсутсвии категории с какойто айди, вывод ошибки 404
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         category = Category.objects.get(pk=self.kwargs['category_id'])
@@ -49,8 +54,11 @@ class ViewNews(DetailView):
     # template_name = 'news_act/news_detail.html
 
 
-class CreateNews(CreateView):
+class CreateNews(LoginRequiredMixin, CreateView):
     """Создание новости"""
+    LoginRequiredMixin.login_url = '/admin/'
+    # login_url = reverse_lazy('home')
+
     form_class = NewsForm
     template_name = 'news_act/add_news.html'
     # success_url = reverse_lazy('home') or get_absolute_url
