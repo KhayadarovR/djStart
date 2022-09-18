@@ -19,6 +19,7 @@ class HomeNews(ListView):
 
     def get_queryset(self):
         return News.objects.filter(is_pub=True).select_related('category')
+        # Гит тест
 
 
 class NewsCategory(ListView):
