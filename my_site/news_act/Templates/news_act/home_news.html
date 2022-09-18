@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block SIDEBAR %}
+        {% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+
+{% block CONTENT %}
+<div class="media-body">
+    <h2 class="md-6">!ГЛАВНАЯ</h2>
+    {% for item in news %}
+        <h5 class="card-title">{{item.title}}: {{item.category.title}}</h5>
+        <p class="card-text">{{item.content|linebreaks|truncatewords:40}}</p>
+        <p class="card-footer">{{item.created_at| date:"Y.m.d H:i"}}</p>
+        <p class="card-footer">{{item.created_at|timesince}}</p>
+        <a href="{{ item.get_absolute_url }}" type="button" class="btn btn-info">Read more...</a>
+    {% endfor %}
+</div>
+{% endblock %}

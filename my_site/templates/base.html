@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title_page}}</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+</head>
+<body>
+
+{% include 'inc/_nav.html'%}
+
+<div class="container text-right mt-3">
+  <div class="row">
+      <div class="col-3">
+          {% block SIDEBAR %} СПИСОК {% endblock %}
+      </div>
+
+      <div class="col-9">
+          {% block CONTENT %} КОНТЕНТ {% endblock %}
+      </div>
+  </div>
+</div>
+
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
