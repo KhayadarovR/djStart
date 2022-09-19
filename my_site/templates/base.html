@@ -19,6 +19,20 @@
       </div>
 
       <div class="col-9">
+          {% if messages %}
+            {% for m in messages %}
+                {% if m.tags == 'error' %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ m }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{ m.tags }}" role="alert">
+                        {{ m }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif%}
+
           {% block CONTENT %} КОНТЕНТ {% endblock %}
 
           {% if page_obj.has_other_pages %}

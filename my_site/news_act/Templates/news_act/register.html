@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block SIDEBAR %}
+        {% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+
+{% block CONTENT %}
+<h1>Регистрация</h1>
+<form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary btn-block"> Окей </button>
+</form>
+{% endblock %}

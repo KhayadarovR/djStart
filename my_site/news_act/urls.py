@@ -10,4 +10,6 @@ urlpatterns = [
     path('news/<int:pk>/', ViewNews.as_view(), name='view_news'),
     path('news/add_news/', CreateNews.as_view(), name='add_news'),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('register/', register, name='register'),
+    path('login/', login, name='login')
 ]

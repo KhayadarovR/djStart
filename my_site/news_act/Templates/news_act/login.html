@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block SIDEBAR %}
+        {% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+
+{% block CONTENT %}
+<h1>Вход</h1>
+<form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field.errors }}
+    
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block"> Добавить новость </button>
+
+</form>
+{% endblock %}

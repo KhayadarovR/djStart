@@ -1,8 +1,10 @@
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from news_act.forms import NewsForm
+
+from news_act.forms import NewsForm, UserRegisterForm
 from news_act.models import News, Category
 from news_act.utils import MyMixin
 
@@ -62,6 +64,28 @@ class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = 'news_act/add_news.html'
     # success_url = reverse_lazy('home') or get_absolute_url
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Успешно')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка!')
+    else:
+        form = UserRegisterForm()
+    context = {
+        'form': form
+    }
+
+    return render(request, 'news_act/register.html', context=context)
+
+
+def login(request):
+    return render(request, 'news_act/login.html')
 
 
 # NOT USE
