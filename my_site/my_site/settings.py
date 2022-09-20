@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import mimetypes
 from pathlib import Path
 import os
+import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 SECRET_KEY = 'django-insecure-%sz+7fvg)ey1wz9bbu6&xc1lifgevrh#r4&_ha@83em!r%5(z&xxx'
+=======
+SECRET_KEY = config.__SECRET_KEY
+>>>>>>> 755e04b (Система авторизации)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

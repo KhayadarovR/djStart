@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
+  <div class="container-fluid mr-3">
       <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"> Главная </a></li>
           <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/admin"> Admin </a></li>
@@ -8,8 +8,14 @@
           {% endif %}
       </ul>
           <span class="navbar-text">
+              {% if request.user.is_authenticated %}
+              {{user.username}}
+              <a href="{% url 'logout' %}"> Выход </a>
+              {% else %}
               <a href="{% url 'register' %}"> Регистрация </a>
+              <br>
               <a href="{% url 'login' %}"> Вход </a>
+              {% endif %}
           </span>
     </div>
   </div>

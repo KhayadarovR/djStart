@@ -1,10 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from news_act.forms import NewsForm, UserRegisterForm
+from news_act.forms import NewsForm, UserRegisterForm, UserLoginForm
 from news_act.models import News, Category
 from news_act.utils import MyMixin
 
@@ -70,9 +71,10 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             messages.success(request, 'Успешно')
-            return redirect('login')
+            login(request, user)
+            return redirect('add_news')
         else:
             messages.error(request, 'Ошибка!')
     else:
@@ -84,8 +86,24 @@ def register(request):
     return render(request, 'news_act/register.html', context=context)
 
 
-def login(request):
-    return render(request, 'news_act/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('add_news')
+        else:
+            messages.warning(request, 'НЕ успешно!')
+    else:
+        form = UserLoginForm()
+
+    return render(request, 'news_act/login.html', context={'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 # NOT USE

@@ -11,5 +11,6 @@ urlpatterns = [
     path('news/add_news/', CreateNews.as_view(), name='add_news'),
     path('__debug__/', include('debug_toolbar.urls')),
     path('register/', register, name='register'),
-    path('login/', login, name='login')
+    path('login/', user_login, name='login'),
+    path('logout/', user_logout, name='logout')
 ]
