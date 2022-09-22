@@ -1,11 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from news_act.forms import NewsForm, UserRegisterForm, UserLoginForm
+from my_site import settings
+from news_act.forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from news_act.models import News, Category
 from news_act.utils import MyMixin
 
@@ -104,6 +106,25 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+def send_mail_to_user(request):
+    if request.method == 'POST':
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], settings.EMAIL_HOST_USER,
+                      ['razil.khayka@gmail.com'], fail_silently=True)
+            if mail:
+                messages.success(request, 'Письмо отправлено!')
+                return redirect('support')
+            else:
+                messages.warning(request, 'Не отправлено!')
+        else:
+            messages.warning(request, 'НЕ успешно!')
+    else:
+        form = ContactForm()
+
+    return render(request, 'news_act/support.html', {'form': form})
 
 
 # NOT USE

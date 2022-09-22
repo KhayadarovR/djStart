@@ -58,3 +58,10 @@ class UserLoginForm(AuthenticationForm):
     username = forms.CharField(max_length=77, label='Login', help_text='Уникальный имя пользователя до 77 символов!',
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=77, label='Тема',
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    content = forms.CharField(label='Ваш текст', required=False, widget=forms.Textarea(attrs={'class': 'form-control',
+                                                                                              'rows': 5}))

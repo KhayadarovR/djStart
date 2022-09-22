@@ -12,5 +12,6 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
-    path('logout/', user_logout, name='logout')
+    path('logout/', user_logout, name='logout'),
+    path('support/', send_mail_to_user, name='support')
 ]
