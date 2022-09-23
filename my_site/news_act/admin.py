@@ -1,5 +1,16 @@
+from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django.contrib import admin
+from django import forms
 from .models import News, Category
+
+
+class NewsAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = News
+        fields = '__all__'
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -12,6 +23,8 @@ class NewsAdmin(admin.ModelAdmin):
     save_on_top = True
     fields = ('id', 'views_count', 'title', 'content',  'category',  'is_pub', 'created_at', 'updated_at')
     readonly_fields = ('id', 'views_count', 'created_at', 'updated_at')
+
+    form = NewsAdminForm
 
 
 class CategoryAdmin(admin.ModelAdmin):

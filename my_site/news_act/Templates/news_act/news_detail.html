@@ -8,7 +8,7 @@
 {% block CONTENT %}
 <div class="media-body">
     <h5 class="card-title">{{news_item.title}}: {{news_item.category.title}}</h5>
-    <p class="card-text">{{news_item.content|linebreaks}}</p>
+    <p class="card-text">{{news_item.content|safe|linebreaks}}</p>
     <hr>
     <p class="card-footer">{{news_item.created_at| date:"Y.m.d H:i"}}</p>
     <p class="card-footer">{{news_item.created_at|timesince}}</p>
