@@ -15,7 +15,10 @@
 <div class="container text-right mt-3">
   <div class="row">
       <div class="col-3">
+<!--          {% load cache %}-->
+<!--          {% cache 30 SIDEBAR %}-->
           {% block SIDEBAR %} СПИСОК {% endblock %}
+<!--          {% endcache %}-->
       </div>
 
       <div class="col-9">

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'news_act.apps.NewsActConfig',
     'ckeditor_uploader',
+    'captcha',
     'ckeditor',
 ]
 
@@ -214,3 +215,12 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'django_cache')
+    }
+}
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
